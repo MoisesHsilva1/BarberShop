@@ -1,9 +1,13 @@
-import HeaderUser from "../components /client /HeaderUser/HeaderUser";
+import HeaderUser from "../components /user/HeaderUser/HeaderUser";
+import SectionUser from "../components /user/SectionUser/SectionUser";
 
 function User() {
   return (
     <>
-      <HeaderUser />
+      <div className="bg-[url('./src/assents/barbershop-backgound.webp')] bg-no-repeat min-h-screen bg-cover">
+        <HeaderUser />
+        <SectionUser />
+      </div>
     </>
   );
 }
