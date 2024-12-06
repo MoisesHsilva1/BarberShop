@@ -1,3 +1,5 @@
+import React from "react";
+
 function HeaderUser() {
   return (
     <>
@@ -12,8 +14,8 @@ function HeaderUser() {
               />
             </div>
             <div className="flex font-sans text-white text-[1rem] sm:text-[1.2rem] gap-3 mt-12 px-4 ">
-              <h2 className="hover:text-red-700">HOME</h2>
-              <h2 className="hover:text-blue-700">SERVIÇOS</h2>
+              <a className="hover:text-red-700" href="/Home">HOME</a>
+              <a className="hover:text-red-700" href="/Services">SERVIÇOS</a>
               <h2 className="hover:text-gray-700">CONTATO</h2>
             </div>
           </div>

@@ -20,9 +20,12 @@ function SectionUser() {
             </h2>
           </div>
           <div className="mt-14 text-center">
-            <button className="bg-yellow-500 border border-transparent rounded-2xl py-3 px-10 w-full sm:px-6 sm:py-3 text-sm sm:text-lg md:text-xl font-light">
+            <a
+              className="bg-yellow-500 hover:text-white border border-transparent rounded-2xl py-3 px-10 w-full sm:px-6 sm:py-3 text-sm sm:text-lg md:text-xl font-light"
+              href="/Services"
+            >
               AGENDAMENTO
-            </button>
+            </a>
             <h3 className="mt-4 text-sm sm:text-base md:text-lg text-white font-normal">
               FAÇA O SEU AGENDAMENTO ONLINE!!
             </h3>
