@@ -4,7 +4,7 @@ import ServicesSection from "../../components /user/ServicesUser/ServicesSection
 function ServicesUser() {
   return (
     <>
-      <div className="bg-[url('./src/assents/background-services.webP')] bg-no-repeat min-h-screen bg-cover">
+      <div className="bg-[url('./src/assents/background-services.webP')] bg-no-repeat min-h-screen bg-covr">
         <HeaderUser />
         <ServicesSection />
       </div>

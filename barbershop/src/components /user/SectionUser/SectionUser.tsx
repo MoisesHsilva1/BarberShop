@@ -13,12 +13,12 @@ function SectionUser() {
     <>
       <main className="overflow-hidden">
         <section className="flex flex-col items-center justify-center min-h-screen px-4">
-          <div className="text-4xl text-white sm:text-5xl md:text-6xl lg:text-7xl text-center font-sans">
+          <header className="text-4xl text-white sm:text-5xl md:text-6xl lg:text-7xl text-center font-sans">
             <h1 className="font-semibold">NASCK HAIR</h1>
             <h2 className="text-2xl font-light sm:text-3xl md:text-4xl">
               UM NOVO CONCEITO SOBRE BARBEARIA
             </h2>
-          </div>
+          </header>
           <div className="mt-14 text-center">
             <a
               className="bg-yellow-500 hover:text-white border border-transparent rounded-2xl py-3 px-10 w-full sm:px-6 sm:py-3 text-sm sm:text-lg md:text-xl font-light"
