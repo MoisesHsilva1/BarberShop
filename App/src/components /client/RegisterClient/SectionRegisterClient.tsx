@@ -1,14 +1,40 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { To, useNavigate } from "react-router";
 import Form from "../../../UI/forms/Form";
 import Input from "../../../UI/inputs/Input";
+import Button from "../../../UI/buttons/Button";
 
 function SectionRegisterClient() {
-const [inputName, setInputName ] =  useState("")
+  const [inputName, setInputName] = useState("");
+  const [inputSurName, setInputSurName] = useState("");
+  const [inputEmail, setInputEmail] = useState("");
+  const [inputPassword, setInputPassword] = useState("");
 
-const handleChageName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const NameValue =  e.target.value;
+  const navigate = useNavigate();
+
+  const navToLogin = (url: To) => {
+    navigate(url)
+  }
+
+  const handleChageName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const NameValue = e.target.value;
     setInputName(NameValue);
-}
+  };
+
+  const handleChangeSurName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const surNameValue = e.target.value;
+    setInputSurName(surNameValue);
+  };
+
+  const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const emailValue = e.target.value;
+    setInputEmail(emailValue);
+  };
+
+  const handleChangePassoword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const passwordValue = e.target.value;
+    setInputPassword(passwordValue);
+  };
 
   const handleSubmitRegister = (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,7 +57,42 @@ const handleChageName = (e: React.ChangeEvent<HTMLInputElement>) => {
               onChange={handleChageName}
               value={inputName}
             />
+            <Input
+              type="text"
+              label="Sobrenome"
+              placeholder="Digite seu segundo nome"
+              onChange={handleChangeSurName}
+              value={inputSurName}
+            />
+            <Input
+              type="email"
+              label="Email"
+              placeholder="Digite seu email"
+              onChange={handleChangeEmail}
+              value={inputEmail}
+            />
+
+            <Input
+              type="password"
+              label="Senha"
+              placeholder="Digite sua senha"
+              onChange={handleChangePassoword}
+              value={inputPassword}
+            />
+            <section className="mt-8">
+              <Button type="submit">Cadastrar</Button>
+            </section>
           </Form>
+        </section>
+        <section>
+        <section className="mt-4 text-center">
+          <a
+            className="underline text-white text-sm sm:text-base"
+            onClick={() => navToLogin("/client/login")}
+          >
+            Já tem conta? Login
+          </a>
+        </section>
         </section>
       </main>
     </>

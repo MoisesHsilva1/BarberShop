@@ -20,23 +20,6 @@ function SectionLoginClient() {
     return emailPattern.test(email);
   };
 
-  const isRequirementsPassword = (password: string) => {
-    const minLength = 8;
-    const hasUpperCase = /[A-Z]/.test(password);
-    const hasLowerCase = /[a-z]/.test(password);
-    const hasNumbers = /\d/.test(password);
-    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-    const isLongEnough = password.length >= minLength;
-
-    return {
-      isLongEnough,
-      hasUpperCase,
-      hasLowerCase,
-      hasNumbers,
-      hasSpecialChar,
-    };
-  };
-
   const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     const emailValue = e.target.value;
     setInputEmail(emailValue);
@@ -50,30 +33,8 @@ function SectionLoginClient() {
     const passwordValue = e.target.value;
     setInputPassword(passwordValue);
 
-    const errorsPassoword = isRequirementsPassword(passwordValue);
-
     if (!passwordValue) {
       setError("");
-    }
-
-    switch (true) {
-      case !errorsPassoword.isLongEnough:
-        setError("O mínimo de caracteres é 8");
-        break;
-      case !errorsPassoword.hasUpperCase:
-        setError("A senha deve conter pelo menos uma letra maiúscula");
-        break;
-      case !errorsPassoword.hasLowerCase:
-        setError("A senha deve conter pelo menos uma letra minúscula");
-        break;
-      case !errorsPassoword.hasSpecialChar:
-        setError("A senha deve conter pelo menos um caractere especial");
-        break;
-      case !errorsPassoword.hasNumbers:
-        setError("A senha deve conter pelo menos um número");
-        break;
-      default:
-        setError("error");
     }
   };
 
