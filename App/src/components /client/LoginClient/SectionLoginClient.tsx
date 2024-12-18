@@ -1,8 +1,19 @@
 import { useState } from "react";
+import { To, useNavigate } from "react-router";
+import Input from "../../../UI/inputs/Input";
+import Form from "../../../UI/forms/Form";
+import Button from "../../../UI/buttons/Button";
+
 function SectionLoginClient() {
   const [inputEmail, setInputEmail] = useState("");
   const [inputPassword, setInputPassword] = useState("");
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
+
+  const navToRegister = (url: To) => {
+    navigate(url);
+  };
 
   const isEmailValid = (email: string) => {
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -40,7 +51,6 @@ function SectionLoginClient() {
     setInputPassword(passwordValue);
 
     const errorsPassoword = isRequirementsPassword(passwordValue);
-
 
     if (!passwordValue) {
       setError("");
@@ -83,16 +93,12 @@ function SectionLoginClient() {
             LOGIN
           </h1>
         </section>
-        <form
-          onSubmit={handleSubmitLogin}
-          className="flex flex-col p-6 sm:p-10 md:p-14 bg-black rounded-xl shadow-lg w-full max-w-sm mx-auto mt-6"
-        >
-          <label className="text-white font-medium">Email</label>
-          <input
-            className="w-full bg-transparent placeholder:text-slate-100 text-slate-700 text-sm sm:text-base border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+        <Form onSubmit={handleSubmitLogin}>
+          <Input
             type="email"
             value={inputEmail}
             onChange={handleChangeEmail}
+            label="Email"
             placeholder="Digite seu email"
           />
 
@@ -102,15 +108,14 @@ function SectionLoginClient() {
             </p>
           )}
 
-          <label className="text-white font-medium mt-4">Senha</label>
-          <input
+          <Input
             className="w-full bg-transparent placeholder:text-slate-100 text-slate-700 text-sm sm:text-base border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
             type="password"
             value={inputPassword}
             onChange={handleChangePassword}
+            label="Senha"
             placeholder="Digite sua senha"
           />
-
           {error && !inputPassword && (
             <p className="text-red-500 text-sm mt-1">
               O campo de senha é obrigatório.
@@ -118,18 +123,13 @@ function SectionLoginClient() {
           )}
 
           <section className="mt-4 w-full max-w-sm mx-auto">
-            <button
-              type="submit"
-              className="w-full text-white font-semi-bold text-xl sm:text-2xl py-3 px-6 hover:bg-yellow-300 bg-yellow-500 rounded-md transition duration-300"
-            >
-              Login
-            </button>
+            <Button type="submit">login</Button>
           </section>
-        </form>
+        </Form>
         <section className="mt-4 text-center">
           <a
             className="underline text-white text-sm sm:text-base"
-            href="/client/registre"
+            onClick={() => navToRegister("/client/register")}
           >
             Não tem uma conta? Cadastre-se
           </a>
