@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { To, useNavigate } from "react-router";
-import Input from "../../../UI/inputs/Input";
-import Form from "../../../UI/forms/Form";
-import Button from "../../../UI/buttons/Button";
+import TextInput from "../../UI/inputs/TextInput";
+import Form from "../../UI/forms/Form";
+import Button from "../../UI/buttons/Button";
 
 function SectionLoginClient() {
   const [inputEmail, setInputEmail] = useState("");
@@ -55,21 +55,20 @@ function SectionLoginClient() {
           </h1>
         </section>
         <Form onSubmit={handleSubmitLogin}>
-          <Input
+          <TextInput
             type="email"
             value={inputEmail}
             onChange={handleChangeEmail}
             label="Email"
             placeholder="Digite seu email"
           />
-
           {error && !inputEmail && (
             <p className="text-red-500 text-sm mt-1">
               O campo de email é obrigatório.
             </p>
           )}
 
-          <Input
+          <TextInput
             className="w-full bg-transparent placeholder:text-slate-100 text-slate-700 text-sm sm:text-base border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
             type="password"
             value={inputPassword}
@@ -90,7 +89,7 @@ function SectionLoginClient() {
         <section className="mt-4 text-center">
           <a
             className="underline text-white text-sm sm:text-base"
-            onClick={() => navToRegister("/client/register")}
+            onClick={() => navToRegister("/register")}
           >
             Não tem uma conta? Cadastre-se
           </a>

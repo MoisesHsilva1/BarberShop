@@ -1,4 +1,25 @@
+import SelectInput from "../../UI/inputs/SelectInput";
+import Button from "../../UI/buttons/Button";
+import IconNextStep from "../../UI/Icons/IconNextStep";
+import React, { useState } from "react";
+import { To, useNavigate } from "react-router";
+
 function ServicesSection() {
+  const [checkedServices, setCheckedServices] = useState([]);
+
+  const handleCheckBoxServicesChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { id, checked } = event.target;
+    setCheckedServices({ ...checkedServices, [id]: checked });
+  };
+
+  const navigate = useNavigate();
+
+  const navToScheduling = (url: To) => {
+    navigate(url);
+  };
+
   return (
     <>
       <main>
@@ -15,16 +36,67 @@ function ServicesSection() {
               SELECIONE OS SERVIÇOS DESEJADOS
             </p>
           </div>
-          <div className="flex justify-center gap-6 mx-6 mt-12 flex-wrap">
-            <p className="bg-white w-auto sm:w-1/3 py-4 px-6 rounded-lg shadow-md hover:bg-yellow-500 hover:text-white transition duration-300 ease-in-out text-center text-black font-medium transform hover:scale-105">
-              CORTE DE CABELO
-            </p>
-            <p className="bg-white w-auto sm:w-1/3 py-4 px-6 rounded-lg shadow-md hover:bg-yellow-500 hover:text-white transition duration-300 ease-in-out text-center text-black font-medium transform hover:scale-105">
-              BARBA
-            </p>
-            <p className="bg-white w-auto sm:w-1/3 py-4 px-6 rounded-lg shadow-md hover:bg-yellow-500 hover:text-white transition duration-300 ease-in-out text-center text-black font-medium transform hover:scale-105">
-              SOBRANCELHA
-            </p>
+          <div>
+            <ul className="flex justify-center gap-6 mx-6 mt-12 flex-wrap bg-black">
+              <li>
+                <SelectInput
+                  onChange={handleCheckBoxServicesChange}
+                  checked={checkedServices[0]}
+                  id="checkbox-service-1"
+                  type="checkbox"
+                  className="hidden peer"
+                />
+                <label
+                  htmlFor="checkbox-service-1"
+                  className="bg-white w-auto sm:w-1/3 py-4 px-32 rounded-lg shadow-md cursor-pointer hover:bg-yellow-500 peer-checked:bg-yellow-500 hover:text-white transition duration-300 ease-in-out text-center text-black font-medium transform hover:scale-105"
+                >
+                  CORTE DE CABELO
+                </label>
+              </li>
+              <li>
+                <SelectInput
+                  onChange={handleCheckBoxServicesChange}
+                  checked={checkedServices[1]}
+                  id="checkbox-service-2"
+                  type="checkbox"
+                  className="hidden peer"
+                />
+                <label
+                  htmlFor="checkbox-service-2"
+                  className="bg-white w-auto sm:w-1/3 py-4 px-32 rounded-lg shadow-md cursor-pointer hover:bg-yellow-500 peer-checked:bg-yellow-500 hover:text-white transition duration-300 ease-in-out text-center text-black font-medium transform hover:scale-105"
+                >
+                  BARBA
+                </label>
+              </li>
+              <li>
+                <SelectInput
+                  onChange={handleCheckBoxServicesChange}
+                  checked={checkedServices[2]}
+                  id="checkbox-service-3"
+                  type="checkbox"
+                  className="hidden peer"
+                />
+                <label
+                  htmlFor="checkbox-service-3"
+                  className="bg-white w-auto sm:w-1/3 py-4 px-32 rounded-lg shadow-md cursor-pointer hover:bg-yellow-500 peer-checked:bg-yellow-500 hover:text-white transition duration-300 ease-in-out text-center text-black font-medium transform hover:scale-105"
+                >
+                  SOBRANCELHA
+                </label>
+              </li>
+            </ul>
+          </div>
+          <div className="flex justify-end gap-6 my-12 mx-12">
+            <Button
+              clasName="text-white mx-8"
+              onClick={() => navToScheduling("/agendamento")}
+              disabled={checkedServices.length == 0 ? true : false}
+            >
+              <IconNextStep
+                className={`w-24 h-24 -my-4 -mx-10 hover:text-yellow-500 ${
+                  checkedServices.length == 0 ? "text-black hover:text-" : "text-white"
+                }`}
+              />
+            </Button>
           </div>
         </section>
       </main>

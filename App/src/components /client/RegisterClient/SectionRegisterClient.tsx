@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { To, useNavigate } from "react-router";
-import Form from "../../../UI/forms/Form";
-import Input from "../../../UI/inputs/Input";
-import Button from "../../../UI/buttons/Button";
+import Form from "../../UI/forms/Form";
+import TextInput from "../../UI/inputs/TextInput";
+import Button from "../../UI/buttons/Button";
 
 function SectionRegisterClient() {
   const [inputName, setInputName] = useState("");
@@ -13,8 +13,8 @@ function SectionRegisterClient() {
   const navigate = useNavigate();
 
   const navToLogin = (url: To) => {
-    navigate(url)
-  }
+    navigate(url);
+  };
 
   const handleChageName = (e: React.ChangeEvent<HTMLInputElement>) => {
     const NameValue = e.target.value;
@@ -50,29 +50,28 @@ function SectionRegisterClient() {
         </section>
         <section>
           <Form onSubmit={handleSubmitRegister}>
-            <Input
+            <TextInput
               type="text"
               label="Nome"
               placeholder="Digite seu primeiro nome"
               onChange={handleChageName}
               value={inputName}
             />
-            <Input
+            <TextInput
               type="text"
               label="Sobrenome"
               placeholder="Digite seu segundo nome"
               onChange={handleChangeSurName}
               value={inputSurName}
             />
-            <Input
+            <TextInput
               type="email"
               label="Email"
               placeholder="Digite seu email"
               onChange={handleChangeEmail}
               value={inputEmail}
             />
-
-            <Input
+            <TextInput
               type="password"
               label="Senha"
               placeholder="Digite sua senha"
@@ -85,14 +84,14 @@ function SectionRegisterClient() {
           </Form>
         </section>
         <section>
-        <section className="mt-4 text-center">
-          <a
-            className="underline text-white text-sm sm:text-base"
-            onClick={() => navToLogin("/client/login")}
-          >
-            Já tem conta? Login
-          </a>
-        </section>
+          <section className="mt-4 text-center">
+            <a
+              className="underline text-white text-sm sm:text-base"
+              onClick={() => navToLogin("/login")}
+            >
+              Já tem conta? Login
+            </a>
+          </section>
         </section>
       </main>
     </>
