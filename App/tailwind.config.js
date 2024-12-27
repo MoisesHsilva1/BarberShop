@@ -1,13 +1,14 @@
 /** @type {import('tailwindcss').Config} */
+
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Roboto', 'sans-serif'],
+        sans: ["Roboto", "sans-serif"],
       },
       backgroundImage: {
-        'barberShop-backgound': "url('./src/assents/barbershop-backgound.webP)"
+        "barberShop-backgound": "url('./src/assents/barbershop-backgound.webP)",
       },
     },
   },
