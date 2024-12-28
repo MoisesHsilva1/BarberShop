@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-function SectionUser() {
+function SectionHomeUser() {
   useEffect(() => {
     document.body.style.overflow = "hidden";
 
@@ -36,4 +36,4 @@ function SectionUser() {
   );
 }
 
-export default SectionUser;
+export default SectionHomeUser;

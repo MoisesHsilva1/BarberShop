@@ -9,6 +9,7 @@ type SelectInputProps = {
   id?: string;
   disabled?: boolean;
   children?: ReactNode;
+  name?: string;
   checked?: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
@@ -24,6 +25,7 @@ function selectInput({
   id,
   onChange,
   checked,
+  name,
 }: SelectInputProps) {
   return (
     <>
@@ -36,6 +38,7 @@ function selectInput({
         className={className}
         disabled={disabled}
         onChange={onChange}
+        name={name}
         checked={checked}
       />
       {children}
