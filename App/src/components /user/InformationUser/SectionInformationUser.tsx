@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import TextInput from "../../UI/inputs/TextInput";
 import Button from "../../UI/buttons/Button";
 import IconNextStep from "../../UI/Icons/IconNextStep";
-import { To, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 function SectionInformationUser() {
   const [userName, setUserName] = useState("");
@@ -10,12 +10,7 @@ function SectionInformationUser() {
   const [userEmail, setUserEmail] = useState("");
   const [errors, setErrors] = useState({ phone: "", email: "" });
 
-const navigate = useNavigate();
-
-const navToconfirmationSchedule = (url: To) => {
-    navigate(url)
-}
-
+  const navigate = useNavigate();
 
   const validateEmail = (email: string) =>
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -46,6 +41,22 @@ const navToconfirmationSchedule = (url: To) => {
       ...prev,
       email: validateEmail(value) ? "" : "E-mail inválido",
     }));
+  };
+
+  const handleSaveUserInfo = () => {
+    const appointmentData = JSON.parse(
+      localStorage.getItem("appointmentData") || "{}"
+    );
+    const userData = { userName, userEmail, phoneUser };
+
+    const fullAppointmentData = { ...appointmentData, user: userData };
+
+    localStorage.setItem(
+      "fullAppointmentData",
+      JSON.stringify(fullAppointmentData)
+    );
+
+    navigate("/confirmacaoAgendamento");
   };
 
   return (
@@ -89,7 +100,7 @@ const navToconfirmationSchedule = (url: To) => {
           />
         </section>
         <Button
-          onClick={() => navToconfirmationSchedule("/confirmacaoAgendamento")}
+          onClick={handleSaveUserInfo}
           disabled={!userEmail || !userName || !phoneUser}
           className={`block ml-auto ${
             !userEmail || !userName || !phoneUser

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 import SelectInput from "../../UI/inputs/SelectInput";
 import Button from "../../UI/buttons/Button";
@@ -12,22 +12,23 @@ const SERVICES = [
 
 function ServicesSection() {
   const [checkedServices, setCheckedServices] = useState<string[]>([]);
-  const [saved, setSaved] = useState(false);
   const navigate = useNavigate();
 
   const handleCheckBoxServicesChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const { id, checked } = event.target;
+    const label = SERVICES.find((service) => service.id === id)?.label || "";
+
     setCheckedServices((prev) =>
-      checked ? [...prev, id] : prev.filter((serviceId) => serviceId !== id)
+      checked ? [...prev, label] : prev.filter((service) => service !== label)
     );
   };
 
   const isButtonDisabled = checkedServices.length === 0;
 
   const handleSaveServices = () => {
-    localStorage.setItem("selectedServices", JSON.stringify(checkedServices));
+    localStorage.setItem("servicesData", JSON.stringify(checkedServices));
     navigate("/agendamento");
   };
 
@@ -53,13 +54,13 @@ function ServicesSection() {
                 id={id}
                 type="checkbox"
                 onChange={handleCheckBoxServicesChange}
-                checked={checkedServices.includes(id)}
+                checked={checkedServices.includes(label)}
                 className="hidden peer"
               />
               <label
                 htmlFor={id}
                 className={`bg-white w-full sm:w-64 py-4 px-6 rounded-lg shadow-md cursor-pointer text-center text-black font-medium transform transition duration-300 ease-in-out break-words ${
-                  checkedServices.includes(id)
+                  checkedServices.includes(label)
                     ? "bg-yellow-500 text-white"
                     : "hover:bg-yellow-500 hover:text-white"
                 } hover:scale-105`}

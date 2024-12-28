@@ -1,19 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const UserModel = require("../models/User.model");
+const { createUser } = require("../controllers/userController");
 
 router.post("/users", async (req, res) => {
   const { name, email, telephone } = req.body;
 
   try {
-    const user = new UserModel({
-      name,
-      email,
-      telephone,
-    });
-
-    await user.save();
-
+    const user = await createUser(name, email, telephone);
     res.status(201).json({
       message: "Usuário criado com sucesso!",
       user,

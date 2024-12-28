@@ -12,9 +12,15 @@ function HeaderUser() {
               />
             </div>
             <div className="flex gap-3 text-white text-[1rem] sm:text-[1.2rem]">
-              <a className="hover:text-blue-700" href="/Home">HOME</a>
-              <a className="hover:text-red-700" href="/Services">SERVIÇOS</a>
-              <h2 className="hover:text-gray-700">CONTATO</h2>
+              <a className="hover:text-blue-700" href="/home">
+                HOME
+              </a>
+              <a className="hover:text-red-700" href="/servicos">
+                SERVIÇOS
+              </a>
+              <a className="hover:text-gray-700" href="/contato">
+                CONTATO
+              </a>
             </div>
           </div>
         </nav>

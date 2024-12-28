@@ -7,13 +7,15 @@ import RegistrationServices from "../pages/client/RegistrationServicesClient";
 import SchedulingUser from "../pages/user/SchedulingUser";
 import InformationUser from "../pages/user/InformationUser";
 import ConfirmationSchedulerUser from "../pages/user/ConfirmationSchedulerUser";
+import ContactUser from "../pages/user/ContactUser";
 
 function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<HomeUser />}></Route>
       <Route path="/home" element={<HomeUser />}></Route>
-      <Route path="/services" element={<ServicesUser />}></Route>
+      <Route path="/servicos" element={<ServicesUser />}></Route>
+      <Route path="/contato" element={<ContactUser />}></Route>
       <Route path="/agendamento" element={<SchedulingUser />}></Route>
       <Route
         path="/informacoesAgendamento"
