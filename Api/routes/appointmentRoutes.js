@@ -1,18 +1,43 @@
 const express = require("express");
 const router = express.Router();
-const { createAppointment } = require("../controllers/appointmentController");
+const Appointment = require("../models/Appointment.model");
 
-router.post("/appointments", async (req, res) => {
-  const { userId, serviceIds, date } = req.body;
-
+router.post("/", async (req, res) => {
   try {
-    const appointment = await createAppointment(userId, serviceIds, new Date(date));
-    res.status(201).json({
-      message: "Agendamento criado com sucesso!",
-      appointment,
+    const { date, time, services, user } = req.body;
+
+    const newAppointment = new Appointment({
+      date,
+      time,
+      services,
+      user,
+    });
+
+    await newAppointment.save();
+
+    return res.status(200).json({
+      message: "Agendamento salvo com sucesso",
+      data: newAppointment,
     });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    console.error("Erro ao salvar agendamento:", error.message);
+    return res.status(500).json({
+      message: "Erro ao salvar agendamento",
+      error: error.message,
+    });
+  }
+});
+
+router.get("/", async (req, res) => {
+  try {
+    const appointments = await Appointment.find();
+    return res.status(200).json(appointments);
+  } catch (error) {
+    console.error("Erro ao buscar agendamentos:", error.message);
+    return res.status(500).json({
+      message: "Erro ao buscar agendamentos",
+      error: error.message,
+    });
   }
 });
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import SelectInput from "../../UI/inputs/SelectInput";
 import IconNextRight from "../../UI/Icons/IconNextRight";
 import IconNextLeft from "../../UI/Icons/IconNextLeft";
@@ -17,34 +17,46 @@ const SectionSchedulingUser = () => {
     { id: "hour3", time: "11h às 11h50" },
   ]);
   const [time, setTime] = useState("");
-  const daysWekend = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+  const daysOfWekend = ["", "", "TER", "QUA", "QUI", "SEX", "SÁB"];
   const months = [
-    "jan",
-    "fev",
-    "mar",
-    "abr",
-    "mai",
-    "jun",
-    "jul",
-    "ago",
-    "set",
-    "out",
-    "nov",
-    "dez",
+    "JAN",
+    "FEV",
+    "MAR",
+    "ABR",
+    "MAI",
+    "JUN",
+    "JUL",
+    "AGO",
+    "SET",
+    "OUT",
+    "NOV",
+    "DEZ",
   ];
   const navigate = useNavigate();
 
   const adjustDate = (days: number) => {
-    const newDate = new Date(currentDate);
-    newDate.setDate(currentDate.getDate() + days);
+    const invalidDays = [0, 1];
+    let newDate = new Date(currentDate);
+    do {
+      newDate.setDate(newDate.getDate() + days);
+    } while (invalidDays.includes(newDate.getDay()));
     setCurrentDate(newDate < new Date() ? new Date() : newDate);
   };
 
   const getCurrentDay = () => {
     const day = currentDate.getDate();
     const month = months[currentDate.getMonth()];
-    const dayWekend = daysWekend[currentDate.getDay()];
-    return `${day} ${month.toUpperCase()}, ${dayWekend.toUpperCase()}`;
+    const dayWekend = daysOfWekend[currentDate.getDay()];
+    return `${day} ${month}, ${dayWekend}`;
+  };
+
+  const isPastHour = (hour: string): boolean => {
+    const hourParts = hour.split(" às ");
+    const startHour = hourParts[0];
+    const [startHourNum, startMin] = startHour.split("h").map(Number);
+    const startTime = new Date(currentDate.setHours(startHourNum, startMin));
+
+    return startTime < new Date();
   };
 
   const loadHours = (hours: { id: string; time: string }[]) => {
@@ -60,16 +72,14 @@ const SectionSchedulingUser = () => {
   };
 
   const handleSaveAppointment = () => {
-    const date = getCurrentDay();
-    const servicesData = JSON.parse(
-      localStorage.getItem("servicesData") || "{}"
+    localStorage.setItem(
+      "appointmentData",
+      JSON.stringify({
+        date: getCurrentDay(),
+        time,
+        services: JSON.parse(localStorage.getItem("servicesData") || "{}"),
+      })
     );
-    const appointmentData = {
-      date,
-      time,
-      services: servicesData,
-    };
-    localStorage.setItem("appointmentData", JSON.stringify(appointmentData));
     navigate("/informacoesAgendamento");
   };
 
@@ -86,13 +96,12 @@ const SectionSchedulingUser = () => {
 
         <section className="flex justify-center my-4 px-4 sm:px-10 lg:px-20">
           <div className="bg-white w-full max-w-[320px] px-5 py-8 rounded-lg shadow-xl">
+            <Button onClick={() => adjustDate(-1)} clasName="absolute">
+              <IconNextLeft className="absolute -mt-1 size-6 hover:bg-yellow-500" />
+            </Button>
             <h1 className="tracking-wider font-medium text-center text-lg sm:text-xl mb-4">
               {getCurrentDay()}
             </h1>
-            <Button onClick={() => adjustDate(-1)} clasName="absolute">
-              <IconNextLeft className="absolute -mt-12 size-6 hover:bg-yellow-500" />
-            </Button>
-
             <Button onClick={() => adjustDate(1)} clasName="absolute">
               <IconNextRight className="absolute ml-64 -mt-12 size-6 hover:bg-yellow-500" />
             </Button>
@@ -108,10 +117,15 @@ const SectionSchedulingUser = () => {
                     checked={isCheckedHour === hour.id}
                     onChange={handleChangeCheckedHour}
                     className="hidden peer"
+                    disabled={isPastHour(hour.time)}
                   />
                   <label
                     htmlFor={hour.id}
-                    className="block px-8 py-4 text-center bg-gray-100 rounded-lg cursor-pointer hover:bg-yellow-500 peer-checked:bg-yellow-500 peer-checked:text-white transition duration-300 ease-in-out"
+                    className={`block px-8 py-4 text-center bg-gray-100 rounded-lg cursor-pointer hover:bg-yellow-500 peer-checked:bg-yellow-500 peer-checked:text-white transition duration-300 ease-in-out ${
+                      isPastHour(hour.time)
+                        ? "bg-red-400 hover:bg-red-600"
+                        : "bg-gray-100"
+                    }`}
                   >
                     {hour.time}
                   </label>
@@ -120,7 +134,7 @@ const SectionSchedulingUser = () => {
             </ul>
 
             <Button
-             clasName=""
+              clasName=""
               onClick={() =>
                 loadHours([
                   { id: "hour4", time: "14h às 14h50" },
