@@ -27,7 +27,7 @@ function getDataAppointment(selectedDate: Date) {
         const response = await axios.get("http://localhost:3030/barberShop");
 
         const filteredAppointments = response.data.filter((appointment: Appointment) =>
-          appointment.date.toUpperCase() === formattedSelectedDate // Comparação considerando só dia e mês
+          appointment.date.toUpperCase() === formattedSelectedDate 
         );
 
         setAppointments(filteredAppointments);
