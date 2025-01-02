@@ -3,7 +3,10 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const connectToDatabase = require("./database/connect");
-const appointmentRoutes = require("./routes/appointmentRoutes");
+const appointmentCreateRoutes = require("./src/routes/Appointments/appointmentCreate");
+const appointmentReadRoutes = require("./src/routes/Appointments/appointmentRead");
+const appointmentGetByDate = require("./src/routes/Appointments/appointmentGetByDate");
+const appointmentCheckTime = require("./src/routes/Appointments/appointmentCheckTime");
 
 const app = express();
 app.use(cors());
@@ -16,7 +19,10 @@ app.get("/", (req, res) => {
   res.send("Servidor está funcionando!");
 });
 
-app.use("/barberShop", appointmentRoutes);
+app.use("/createAppointment", appointmentCreateRoutes);
+app.use("/readAppointment", appointmentReadRoutes);
+app.use("/getByDateAppointment", appointmentGetByDate);
+app.use("/getAvailabilityAppointment", appointmentCheckTime);
 
 app.listen(3030, () => {
   console.log("Server On");

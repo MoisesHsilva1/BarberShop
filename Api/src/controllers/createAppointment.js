@@ -1,5 +1,4 @@
 const AppointmentModel = require("../models/Appointment.model");
-const ServiceModel = require("../models/Appointment.model");
 
 const createAppointment = async (userId, serviceIds, date) => {
   const services = await ServiceModel.find({ _id: { $in: serviceIds } });
