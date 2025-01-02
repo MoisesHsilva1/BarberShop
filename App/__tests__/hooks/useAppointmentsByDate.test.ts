@@ -37,7 +37,7 @@ describe("useAppointmentsByDate", () => {
       expect(result.current.error).toBe(null);
     });
 
-    // Verificando se o axios foi chamado corretamente
+
     expect(mockedAxios.get).toHaveBeenCalledWith(
       "http://localhost:3030/getByDateAppointment?date=31%20DEZ%2C%20TER"
     );
