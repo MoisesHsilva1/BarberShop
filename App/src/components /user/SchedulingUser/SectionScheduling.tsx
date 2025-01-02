@@ -17,7 +17,7 @@ const SectionSchedulingUser = () => {
     { id: "hour3", time: "11h às 11h50" },
   ]);
   const [time, setTime] = useState("");
-  const daysOfWekend = ["", "", "TER", "QUA", "QUI", "SEX", "SÁB"];
+  const daysOfWekend = ["DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SÁB"];
   const months = [
     "JAN",
     "FEV",
@@ -36,10 +36,11 @@ const SectionSchedulingUser = () => {
 
   const adjustDate = (days: number) => {
     const invalidDays = [0, 1];
-    let newDate = new Date(currentDate);
+    let newDate = new Date(currentDate.getTime());
     do {
       newDate.setDate(newDate.getDate() + days);
     } while (invalidDays.includes(newDate.getDay()));
+    setCurrentDate(newDate);
     setCurrentDate(newDate < new Date() ? new Date() : newDate);
   };
 
@@ -51,10 +52,12 @@ const SectionSchedulingUser = () => {
   };
 
   const isPastHour = (hour: string): boolean => {
-    const hourParts = hour.split(" às ");
-    const startHour = hourParts[0];
-    const [startHourNum, startMin] = startHour.split("h").map(Number);
-    const startTime = new Date(currentDate.setHours(startHourNum, startMin));
+    const [startHourNum, startMin] = hour
+      .split(" às ")[0]
+      .split("h")
+      .map(Number);
+    const startTime = new Date(currentDate.getTime());
+    startTime.setHours(startHourNum, startMin, 0, 0);
 
     return startTime < new Date();
   };
