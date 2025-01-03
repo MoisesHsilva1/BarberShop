@@ -6,6 +6,14 @@ router.post("/", async (req, res) => {
   try {
     const { date, time, services, user } = req.body;
 
+    const existingAppointment = await Appointment.findOne({ date, time, user });
+
+    if (existingAppointment) {
+      return res.status(400).json({
+        message: "Este agendamento já existe para este usuário na mesma data e hora.",
+      });
+    }
+
     const newAppointment = new Appointment({
       date,
       time,

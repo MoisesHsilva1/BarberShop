@@ -3,7 +3,7 @@ import SelectInput from "../../UI/inputs/SelectInput";
 import IconNextRight from "../../UI/Icons/IconNextRight";
 import IconNextLeft from "../../UI/Icons/IconNextLeft";
 import IconNextDown from "../../UI/Icons/IconNextDown";
-import IconNextUp from "../../UI/Icons/IconNextrUp";
+import IconNextUp from "../../UI/Icons/IconNextUp";
 import IconNextStep from "../../UI/Icons/IconNextStep";
 import Button from "../../UI/buttons/Button";
 import { useNavigate } from "react-router";

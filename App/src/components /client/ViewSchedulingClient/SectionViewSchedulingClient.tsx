@@ -73,7 +73,7 @@ function SectionViewSchedulingClient() {
                       {appointment.user.userName}
                     </p>
                     <p className="font-bold text-gray-300">
-                     CONTATO: {appointment.user.phoneUser}
+                      CONTATO: {appointment.user.phoneUser}
                     </p>
                     <p className="font-bold text-gray-300">
                       HORÁRIO: {appointment.time}

@@ -6,7 +6,6 @@ const connectToDatabase = require("./database/connect");
 const appointmentCreateRoutes = require("./src/routes/Appointments/appointmentCreate");
 const appointmentReadRoutes = require("./src/routes/Appointments/appointmentRead");
 const appointmentGetByDate = require("./src/routes/Appointments/appointmentGetByDate");
-const appointmentCheckTime = require("./src/routes/Appointments/appointmentCheckTime");
 
 const app = express();
 app.use(cors());
@@ -22,7 +21,6 @@ app.get("/", (req, res) => {
 app.use("/createAppointment", appointmentCreateRoutes);
 app.use("/readAppointment", appointmentReadRoutes);
 app.use("/getByDateAppointment", appointmentGetByDate);
-app.use("/getAvailabilityAppointment", appointmentCheckTime);
 
 app.listen(3030, () => {
   console.log("Server On");
