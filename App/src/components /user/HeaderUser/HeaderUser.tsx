@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router";
+
 function HeaderUser() {
+  const navigate = useNavigate();
+
   return (
     <>
       <header>
@@ -12,13 +16,22 @@ function HeaderUser() {
               />
             </div>
             <div className="flex gap-3 text-white text-[1rem] sm:text-[1.2rem]">
-              <a className="hover:text-blue-700" href="/home">
+              <a
+                className="hover:text-blue-700"
+                onClick={() => navigate("/home")}
+              >
                 HOME
               </a>
-              <a className="hover:text-red-700" href="/servicos">
+              <a
+                className="hover:text-red-700"
+                onClick={() => navigate("/servicos")}
+              >
                 SERVIÇOS
               </a>
-              <a className="hover:text-gray-700" href="/contato">
+              <a
+                className="hover:text-gray-700"
+                onClick={() => navigate("/contato")}
+              >
                 CONTATO
               </a>
             </div>
