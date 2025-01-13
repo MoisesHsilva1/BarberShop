@@ -10,7 +10,7 @@ function HeaderUser() {
           <div className="flex justify-between items-center h-full px-4">
             <div>
               <img
-                src="/src/assents/logo.png"
+                src="/assents/logo.png"
                 alt="logo-baberShop"
                 className="h-auto w-40"
               />
