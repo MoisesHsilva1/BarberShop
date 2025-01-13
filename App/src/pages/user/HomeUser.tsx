@@ -4,7 +4,7 @@ import SectionHomeUser from "../../components /user/SectionHomeUser/SectionHomeU
 function HomeUser() {
   return (
     <>
-      <div className="bg-[url('./src/assents/barbershop-backgound.webp')] bg-no-repeat min-h-screen bg-cover">
+      <div className="bg-[url('/assents/barbershop-backgound.webp')] bg-no-repeat min-h-screen bg-cover">
         <HeaderUser />
         <SectionHomeUser />
       </div>

@@ -4,7 +4,7 @@ import HeaderUser from "../../components /user/HeaderUser/HeaderUser";
 function SchedulingUser() {
   return (
     <>
-      <div className="bg-[url('./src/assents/background-services.webP')] min-h-screen bg-cover">
+      <div className="bg-[url('/assents/background-services.webP')] min-h-screen bg-cover">
         <HeaderUser />
         <SectionSchedulingUser />
       </div>
