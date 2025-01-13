@@ -12,7 +12,6 @@ router.get("/", async (req, res) => {
 
     const appointments = await Appointment.find({ date });
 
-
     if (appointments.length === 0) {
       return res.status(404).json({ message: "Nenhum agendamento encontrado para a data fornecida" });
     }

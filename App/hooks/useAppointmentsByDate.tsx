@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-function useAppointmentsByDate(date: string) {
+const useAppointmentsByDate = (date: string) => {
   const [appointments, setAppointments] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const apiUrl = process.env.VITE_GET_APPOINTMENTBYDATE_API_URL || "";
+  const apiUrl = process.env.GET_APPOINTMENTBYDATE_API_URL || "";
 
   useEffect(() => {
     if (!date) return;

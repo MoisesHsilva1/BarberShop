@@ -2,21 +2,16 @@ import { useState } from "react";
 import SelectInput from "../../UI/inputs/SelectInput";
 import IconNextRight from "../../UI/Icons/IconNextRight";
 import IconNextLeft from "../../UI/Icons/IconNextLeft";
-import IconNextDown from "../../UI/Icons/IconNextDown";
-import IconNextUp from "../../UI/Icons/IconNextUp";
 import IconNextStep from "../../UI/Icons/IconNextStep";
 import Button from "../../UI/buttons/Button";
 import { useNavigate } from "react-router";
+import useAppointmentsByHour from "../../../../hooks/useAppointmentsByHour";
 
 const SectionSchedulingUser = () => {
   const [isCheckedHour, setIsCheckedHour] = useState("");
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [availableHours, setAvailableHours] = useState([
-    { id: "hour1", time: "9h às 9h50" },
-    { id: "hour2", time: "10h às 10h50" },
-    { id: "hour3", time: "11h às 11h50" },
-  ]);
   const [time, setTime] = useState("");
+
   const daysOfWekend = ["DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SÁB"];
   const months = [
     "JAN",
@@ -51,6 +46,8 @@ const SectionSchedulingUser = () => {
     return `${day} ${month}, ${dayWekend}`;
   };
 
+  const { hours, loading, error } = useAppointmentsByHour(getCurrentDay());
+
   const isPastHour = (hour: string): boolean => {
     const [startHourNum, startMin] = hour
       .split(" às ")[0]
@@ -58,12 +55,11 @@ const SectionSchedulingUser = () => {
       .map(Number);
     const startTime = new Date(currentDate.getTime());
     startTime.setHours(startHourNum, startMin, 0, 0);
-
     return startTime < new Date();
   };
 
-  const loadHours = (hours: { id: string; time: string }[]) => {
-    setAvailableHours(hours);
+  const isOccupied = (hour: string): boolean => {
+    return hours.occupiedTimes.includes(hour);
   };
 
   const handleChangeCheckedHour = (
@@ -71,7 +67,9 @@ const SectionSchedulingUser = () => {
   ) => {
     const timeId = event.target.value;
     setIsCheckedHour(timeId);
-    setTime(availableHours.find((hour) => hour.id === timeId)?.time || "");
+    setTime(
+      hours.availableTimes.find((hour) => hour.id === timeId)?.time || ""
+    );
   };
 
   const handleSaveAppointment = () => {
@@ -86,11 +84,19 @@ const SectionSchedulingUser = () => {
     navigate("/informacoesAgendamento");
   };
 
+  if (loading) {
+    return <div>Carregando...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
   return (
     <main>
-      <section className="fixed bottom-0 left-0 w-full bg-black h-3/6 shadow-lg">
+      <section className="fixed bottom-0 left-0 w-full bg-black h-3/6 shadow-lg overflow-y-auto">
         <section className="flex justify-center -mt-10 h-20">
-          <div className="bg-yellow-500 w-auto max-w-[320px] px-4 py-3 rounded-lg shadow-xl">
+          <div className=" fixed bg-yellow-500 w-auto max-w-[320px] px-4 py-3 rounded-lg shadow-xl">
             <h1 className="text-2xl text-black font-light text-center">
               ESCOLHA A DATA/HORÁRIO
             </h1>
@@ -110,7 +116,7 @@ const SectionSchedulingUser = () => {
             </Button>
 
             <ul className="flex flex-wrap gap-1 justify-center">
-              {availableHours.map((hour) => (
+              {hours.availableTimes.map((hour) => (
                 <li key={hour.id}>
                   <SelectInput
                     type="radio"
@@ -120,13 +126,15 @@ const SectionSchedulingUser = () => {
                     checked={isCheckedHour === hour.id}
                     onChange={handleChangeCheckedHour}
                     className="hidden peer"
-                    disabled={isPastHour(hour.time)}
+                    disabled={isPastHour(hour.time) || isOccupied(hour.time)}
                   />
                   <label
                     htmlFor={hour.id}
                     className={`block px-8 py-4 text-center bg-gray-100 rounded-lg cursor-pointer hover:bg-yellow-500 peer-checked:bg-yellow-500 peer-checked:text-white transition duration-300 ease-in-out ${
                       isPastHour(hour.time)
                         ? "bg-red-400 hover:bg-red-600"
+                        : isOccupied(hour.time)
+                        ? "bg-gray-400 cursor-not-allowed"
                         : "bg-gray-100"
                     }`}
                   >
@@ -135,32 +143,6 @@ const SectionSchedulingUser = () => {
                 </li>
               ))}
             </ul>
-
-            <Button
-              clasName=""
-              onClick={() =>
-                loadHours([
-                  { id: "hour4", time: "14h às 14h50" },
-                  { id: "hour5", time: "15h às 15h50" },
-                  { id: "hour6", time: "16h às 16h50" },
-                ])
-              }
-            >
-              <IconNextDown className="size-6 mx-24 hover:bg-yellow-500" />
-            </Button>
-
-            <Button
-              onClick={() =>
-                loadHours([
-                  { id: "hour1", time: "9h às 9h50" },
-                  { id: "hour2", time: "10h às 10h50" },
-                  { id: "hour3", time: "11h às 11h50" },
-                ])
-              }
-              clasName="absolute -ml-12"
-            >
-              <IconNextUp />
-            </Button>
           </div>
         </section>
 

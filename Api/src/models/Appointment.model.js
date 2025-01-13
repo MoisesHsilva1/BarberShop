@@ -13,6 +13,15 @@ const appointmentSchema = new Schema({
   },
 });
 
+appointmentSchema.index(
+  {
+    date: 1,
+    time: 1,
+    "user.userEmail": 1,
+  },
+  { unique: true }
+);
+
 const Appointment = model("Appointment", appointmentSchema);
 
 module.exports = Appointment;
