@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router";
 
 function SectionHomeUser() {
   useEffect(() => {
@@ -8,6 +9,8 @@ function SectionHomeUser() {
       document.body.style.overflow = "";
     };
   }, []);
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -22,7 +25,7 @@ function SectionHomeUser() {
           <div className="mt-14 text-center">
             <a
               className="bg-yellow-500 hover:text-white border border-transparent rounded-2xl py-3 px-10 w-full sm:px-6 sm:py-3 text-sm sm:text-lg md:text-xl font-light"
-              href="/servicos"
+              onClick={() => navigate("/servicos")}
             >
               AGENDAMENTO
             </a>
