@@ -3,13 +3,18 @@ const router = express.Router();
 const Appointment = require("../../models/Appointment.model");
 
 const AVAILABLE_TIMES = [
-  {id: "hour1", time:"9h às 9h50" },
-  {id: "hour2", time:"10h às 10h50"},
-  {id: "hour3", time:"11h às 11h50"},
-  {id: "hour4", time:"14h às 14h50"},
-  {id: "hour5", time:"15h às 15h50"},
-  {id: "hour6", time:"16h às 16h50"},
-  {id: "hour7", time:"17h às 17h50"},
+  {id: "hour1", time:"8h às 8h50"},
+  {id: "hour2", time:"9h às 9h50" },
+  {id: "hour3", time:"10h às 10h50"},
+  {id: "hour4", time:"11h às 11h50"},
+  {id: "hour5", time:"14h às 14h50"},
+  {id: "hour6", time:"15h às 15h50"},
+  {id: "hour7", time:"16h às 16h50"},
+  {id: "hour8", time:"17h às 17h50"},
+  {id: "hour9", time:"17h às 17h50"},
+  {id: "hour10", time:"18h às 18h50"},
+  {id: "hour11", time:"19h às 19h50"},
+
 ];
 
 router.get("/", async (req, res) => {
