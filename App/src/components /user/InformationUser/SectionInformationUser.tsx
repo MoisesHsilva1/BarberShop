@@ -1,14 +1,16 @@
-import  { useState } from "react";
+import { useState } from "react";
 import TextInput from "../../UI/inputs/TextInput";
 import Button from "../../UI/buttons/Button";
 import IconNextStep from "../../UI/Icons/IconNextStep";
 import { useNavigate } from "react-router";
+import CustomConfirm from "../../UI/CustomConfirm";
 
 function SectionInformationUser() {
   const [userName, setUserName] = useState("");
   const [phoneUser, setPhoneUser] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [errors, setErrors] = useState({ phone: "", email: "" });
+  const [isConfirmAppointment, setIsConfirmAppointment] = useState(false);
 
   const navigate = useNavigate();
 
@@ -41,6 +43,14 @@ function SectionInformationUser() {
       ...prev,
       email: validateEmail(value) ? "" : "E-mail inválido",
     }));
+  };
+
+  const handleOpenConfirm = () => {
+    setIsConfirmAppointment(true);
+  };
+
+  const handleCloseConfirm = () => {
+    setIsConfirmAppointment(false);
   };
 
   const handleSaveUserInfo = () => {
@@ -100,7 +110,7 @@ function SectionInformationUser() {
           />
         </section>
         <Button
-          onClick={handleSaveUserInfo}
+          onClick={handleOpenConfirm}
           disabled={!userEmail || !userName || !phoneUser}
           className={`block ml-auto ${
             !userEmail || !userName || !phoneUser
@@ -117,6 +127,16 @@ function SectionInformationUser() {
           />
         </Button>
       </section>
+      {isConfirmAppointment && (
+        <CustomConfirm
+          onConfirm={handleSaveUserInfo}
+          onCancel={handleCloseConfirm}
+          title="Confirme seu agendamento"
+          text="Você está prestes a confirmar o agendamento. Deseja continuar?"
+          confirmLabel="Confirmar"
+          cancelLabel="cancelar"
+        />
+      )}
     </main>
   );
 }

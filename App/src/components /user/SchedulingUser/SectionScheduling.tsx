@@ -6,13 +6,11 @@ import IconNextStep from "../../UI/Icons/IconNextStep";
 import Button from "../../UI/buttons/Button";
 import { useNavigate } from "react-router";
 import useAppointmentsByHour from "../../../../hooks/useAppointmentsByHour";
-import CustomConfirm from "../../UI/CustomConfirm";
 
 const SectionSchedulingUser = () => {
   const [isCheckedHour, setIsCheckedHour] = useState("");
   const [currentDate, setCurrentDate] = useState(new Date());
   const [time, setTime] = useState("");
-  const [isConfirmAppointment, setIsConfirmAppointment] = useState(false);
 
   const daysOfWekend = ["DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SÁB"];
   const months = [
@@ -72,14 +70,6 @@ const SectionSchedulingUser = () => {
     setTime(
       hours.availableTimes.find((hour) => hour.id === timeId)?.time || ""
     );
-  };
-
-  const handleOpenConfirm = () => {
-    setIsConfirmAppointment(true);
-  };
-
-  const handleCloseConfirm = () => {
-    setIsConfirmAppointment(false);
   };
 
   const handleSaveAppointment = () => {
@@ -157,7 +147,7 @@ const SectionSchedulingUser = () => {
         </section>
 
         <Button
-          onClick={handleOpenConfirm}
+          onClick={handleSaveAppointment}
           disabled={!isCheckedHour}
           className={`block ml-auto ${
             isCheckedHour ? "cursor-pointer" : "cursor-not-allowed opacity-50"
@@ -166,16 +156,6 @@ const SectionSchedulingUser = () => {
           <IconNextStep className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 -my-4 sm:-my-12 md:-my-28 mr-6 sm:mr-10 md:mr-14 text-white hover:text-yellow-500" />
         </Button>
       </section>
-      {isConfirmAppointment && (
-        <CustomConfirm
-          onConfirm={handleSaveAppointment}
-          onCancel={handleCloseConfirm}
-          title="Confirme seu agendamento"
-          text="Você está prestes a confirmar o agendamento. Deseja continuar?"
-          confirmLabel="Confirmar"
-          cancelLabel="cancelar"
-        />
-      )}
     </main>
   );
 };
