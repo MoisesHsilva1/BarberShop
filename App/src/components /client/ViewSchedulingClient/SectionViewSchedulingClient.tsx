@@ -14,7 +14,8 @@ function SectionViewSchedulingClient() {
       .replace(/[.,]/g, "")
       .toUpperCase();
     const month = selectedDate
-      .toLocaleDateString("en-US", { month: "short" })
+      .toLocaleDateString("pt-br", { month: "short" })
+      .replace(/[.,]/g, "")
       .toUpperCase();
 
     return `${day} ${month}, ${weekday}`;
