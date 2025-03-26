@@ -5,7 +5,7 @@ import IconNextLeft from "../../UI/Icons/IconNextLeft";
 import IconNextStep from "../../UI/Icons/IconNextStep";
 import Button from "../../UI/buttons/Button";
 import { useNavigate } from "react-router";
-import useAppointmentsByHour from "../../../../hooks/useAppointmentsByHour";
+import useAppointmentsByHour from "../../../hooks/useAppointmentsByHour";
 
 const SectionSchedulingUser = () => {
   const [isCheckedHour, setIsCheckedHour] = useState("");

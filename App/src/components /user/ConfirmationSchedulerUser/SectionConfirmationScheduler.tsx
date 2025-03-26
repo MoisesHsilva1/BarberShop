@@ -1,4 +1,4 @@
-import useDataAppointment from "../../../../hooks/useDataAppointment";
+import useDataAppointment from "../../../hooks/useDataAppointment";
 
 function SectionConfirmationScheduler() {
   useDataAppointment();

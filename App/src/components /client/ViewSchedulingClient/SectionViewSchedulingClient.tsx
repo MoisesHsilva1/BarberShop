@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import Button from "../../UI/buttons/Button";
 import IconNextRight from "../../UI/Icons/IconNextRight";
 import IconNextLeft from "../../UI/Icons/IconNextLeft";
-import useAppointmentsByDate from "../../../../hooks/useAppointmentsByDate";
+import useAppointmentsByDate from "../../../hooks/useAppointmentsByDate";
 
 function SectionViewSchedulingClient() {
   const [selectedDate, setSelectedDate] = useState(new Date());
