@@ -2,7 +2,7 @@ import React from "react";
 import "@testing-library/jest-dom";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { vi } from "vitest";
-import ServicesSection from "../../../../src/components /user/ServicesUser/ServicesSection";
+import Services from "../../../../src/components/templates/user/Services";
 import { BrowserRouter as Router } from "react-router-dom";
 
 vi.mock("react-router", () => ({
@@ -22,7 +22,7 @@ describe("ServicesSection", () => {
   it("should render services correctly", () => {
     render(
       <Router>
-        <ServicesSection />
+        <Services />
       </Router>
     );
 
@@ -34,7 +34,7 @@ describe("ServicesSection", () => {
   it("should add and remove services when clicking checkboxes", () => {
     render(
       <Router>
-        <ServicesSection />
+        <Services />
       </Router>
     );
 
@@ -57,7 +57,7 @@ describe("ServicesSection", () => {
   it("should disable the save button when no service is selected", () => {
     render(
       <Router>
-        <ServicesSection />
+        <Services />
       </Router>
     );
 
@@ -68,7 +68,7 @@ describe("ServicesSection", () => {
   it("should enable the save button when at least one service is selected", () => {
     render(
       <Router>
-        <ServicesSection />
+        <Services />
       </Router>
     );
 

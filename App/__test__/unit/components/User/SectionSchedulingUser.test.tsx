@@ -2,7 +2,7 @@ import React from "react";
 import "@testing-library/jest-dom";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { vi, Mock } from "vitest";
-import SectionSchedulingUser from "../../../../src/components /user/SchedulingUser/SectionScheduling";
+import Appointment from "../../../../src/components/templates/user/Appointment";
 import { useNavigate } from "react-router";
 import useAppointmentsByHour from "../../../../src/hooks/useAppointmentsByHour";
 
@@ -37,7 +37,7 @@ describe("SectionSchedulingUser", () => {
       error: null,
     });
 
-    render(<SectionSchedulingUser />);
+    render(<Appointment />);
     expect(screen.getByText("Carregando...")).toBeInTheDocument();
   });
 
@@ -48,12 +48,12 @@ describe("SectionSchedulingUser", () => {
       error: "Erro ao carregar horários",
     });
 
-    render(<SectionSchedulingUser />);
+    render(<Appointment />);
     expect(screen.getByText("Erro ao carregar horários")).toBeInTheDocument();
   });
 
   it("should display available times correctly", () => {
-    render(<SectionSchedulingUser />);
+    render(<Appointment />);
 
     expect(screen.getByLabelText("10h00")).toBeInTheDocument();
     expect(screen.getByLabelText("11h00")).toBeInTheDocument();
