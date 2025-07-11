@@ -1,7 +1,7 @@
 <h1 align="center"> Agendamento Barbearia </h1>
 
 <h2>Descrição do Projeto</h2>
-<p>Este projeto foi desenvolvido como um trabalho freelancer, atendendo à necessidade de um amigo barbeiro que buscava um sistema de agendamento totalmente personalizado e exclusivo. A aplicação foi construída utilizando TypeScript e JavaScript, com React (TypeScript) para o desenvolvimento das interfaces e Node.js no padrão MVC para a construção do backend. O banco de dados MongoDB foi escolhido para o armazenamento dos dados, garantindo flexibilidade e escalabilidade.</p>
+<p>Este projeto foi desenvolvido como um trabalho freelancer, atendendo à necessidade de um amigo barbeiro que buscava um sistema de agendamento totalmente personalizado e exclusivo. A aplicação foi construída utilizando TypeScript, com React (TypeScript) para o desenvolvimento das interfaces.</p>
 
 <h2>Status do Projeto</h2>
 <p align="left">
@@ -10,16 +10,13 @@
 
 <h2>Tecnologias Utilizadas</h2>
 <ul>
-  <li><code>JavaScript</code></li>
   <li><code>TypeScript</code></li>
-  <li><code>Node.js</code></li>
   <li><code>React</code></li>
   <li><code>Jest</code></li>
   <li><code>React Testing Library</code></li>
-  <li><code>MVC</code></li>
-  <li><code>MongoDB</code></li>
-  <li><code>Express.js</code></li>
-  <li><code>Mongoose</code></li>
+  <li><code>Atomic Design</code></li>
+  <li><code>Tailwind</code></li>
+  <li><code>React Query</code></li>
 </ul>
 
 <h2>Demonstração da Aplicação</h2>
