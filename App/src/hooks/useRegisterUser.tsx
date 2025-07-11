@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { RegisterUserDto } from "../types/Dto/RegisterUserDto";
+import { RegisterUserDto } from "../types/interface/RegisterUserDto";
 import { registerUserUseCase } from "../usecases/user/registerUserUseCase";
 
 export const useRegisterUser = () => {

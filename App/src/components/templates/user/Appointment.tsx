@@ -1,160 +1,179 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
+import { useCreateAppointment } from "../../../hooks/useCreateAppointment";
+import { useAppointmentHours } from "../../../hooks/useAppointmentByHours";
 import SelectInput from "../../atoms/inputs/SelectInput";
 import IconNextRight from "../../atoms/Icons/IconNextRight";
 import IconNextLeft from "../../atoms/Icons/IconNextLeft";
 import IconNextStep from "../../atoms/Icons/IconNextStep";
 import Button from "../../atoms/buttons/Button";
-import { useNavigate } from "react-router";
-import useAppointmentsByHour from "../../../hooks/useAppointmentsByHour";
 
 const Appointment = () => {
   const [isCheckedHour, setIsCheckedHour] = useState("");
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [time, setTime] = useState("");
+  const [showAll, setShowAll] = useState(false);
 
-  const daysOfWekend = ["DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SÁB"];
-  const months = [
-    "JAN",
-    "FEV",
-    "MAR",
-    "ABR",
-    "MAI",
-    "JUN",
-    "JUL",
-    "AGO",
-    "SET",
-    "OUT",
-    "NOV",
-    "DEZ",
-  ];
+  const { mutate: createAppointment } = useCreateAppointment();
+  const formattedDate = currentDate.toISOString().split("T")[0];
+  const {
+    data: availableTimes,
+    error,
+    isLoading,
+  } = useAppointmentHours(formattedDate);
+
   const navigate = useNavigate();
 
-  const adjustDate = (days: number) => {
-    const invalidDays = [0, 1];
-    let newDate = new Date(currentDate.getTime());
-    do {
-      newDate.setDate(newDate.getDate() + days);
-    } while (invalidDays.includes(newDate.getDay()));
-    setCurrentDate(newDate);
-    setCurrentDate(newDate < new Date() ? new Date() : newDate);
-  };
+  if (isLoading) {
+    return (
+      <p className="h-screen flex justify-center items-center text-4xl text-white font-bold">
+        Carregando horários disponíveis...
+      </p>
+    );
+  }
 
-  const getCurrentDay = () => {
-    const day = currentDate.getDate();
-    const month = months[currentDate.getMonth()];
-    const dayWekend = daysOfWekend[currentDate.getDay()];
-    return `${day} ${month}, ${dayWekend}`;
-  };
+  if (error) {
+    return <p>Erro ao carregar horários. Tente novamente.</p>;
+  }
 
-  const { hours, loading, error } = useAppointmentsByHour(getCurrentDay());
+  const timesToShow = showAll ? availableTimes : availableTimes.slice(0, 3);
+  const advanceDay = (data: Date, days: number) => {
+    return new Date(data.getFullYear(), data.getMonth(), data.getDate() + days);
+  };
 
   const isPastHour = (hour: string): boolean => {
     const [startHourNum, startMin] = hour
       .split(" às ")[0]
       .split("h")
       .map(Number);
-    const startTime = new Date(currentDate.getTime());
-    startTime.setHours(startHourNum, startMin, 0, 0);
-    return startTime < new Date();
-  };
 
-  const isOccupied = (hour: string): boolean => {
-    return hours.occupiedTimes.includes(hour);
+    const startTime = new Date(currentDate.getTime());
+    startTime.setHours(startHourNum, startMin || 0, 0, 0);
+
+    return startTime < new Date();
   };
 
   const handleChangeCheckedHour = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const timeId = event.target.value;
-    setIsCheckedHour(timeId);
-    setTime(
-      hours.availableTimes.find((hour) => hour.id === timeId)?.time || ""
-    );
+    setIsCheckedHour(event.target.value);
   };
 
   const handleSaveAppointment = () => {
+    const services = JSON.parse(localStorage.getItem("servicesData") || "{}");
+
+    const appointmentData = {
+      date: formattedDate,
+      time: isCheckedHour,
+      services,
+    };
+
     localStorage.setItem(
       "appointmentData",
       JSON.stringify({
-        date: getCurrentDay(),
-        time,
-        services: JSON.parse(localStorage.getItem("servicesData") || "{}"),
+        date: currentDate.toLocaleDateString("pt-BR"),
+        time: isCheckedHour,
+        services,
       })
     );
-    navigate("/informacoesAgendamento");
+
+    createAppointment(appointmentData);
+    navigate("/confirmacaoAgendamento");
   };
-
-  if (loading) {
-    return <div>Carregando...</div>;
-  }
-
-  if (error) {
-    return <div>{error}</div>;
-  }
 
   return (
     <main>
       <section className="fixed bottom-0 left-0 w-full bg-black h-3/6 shadow-lg overflow-y-auto">
         <section className="flex justify-center -mt-10 h-20">
-          <div className=" fixed bg-yellow-500 w-auto max-w-[320px] px-4 py-3 rounded-lg shadow-xl">
+          <div className="fixed bg-yellow-500 w-auto max-w-[320px] px-4 py-3 rounded-lg shadow-xl">
             <h1 className="text-2xl text-black font-light text-center">
               ESCOLHA A DATA/HORÁRIO
             </h1>
           </div>
         </section>
 
-        <section className="flex justify-center my-4 px-4 sm:px-10 lg:px-20">
+        <section className="flex justify-center my-4 px-4 gap-6 sm:px-10 lg:px-20">
           <div className="bg-white w-full max-w-[320px] px-5 py-8 rounded-lg shadow-xl">
-            <Button onClick={() => adjustDate(-1)} clasName="absolute">
-              <IconNextLeft className="absolute -mt-1 size-6 hover:bg-yellow-500" />
-            </Button>
-            <h1 className="tracking-wider font-medium text-center text-lg sm:text-xl mb-4">
-              {getCurrentDay()}
-            </h1>
-            <Button onClick={() => adjustDate(1)} clasName="absolute">
-              <IconNextRight className="absolute ml-64 -mt-12 size-6 hover:bg-yellow-500" />
-            </Button>
+            <span className="flex justify-between">
+              <button
+                disabled={
+                  currentDate.toLocaleDateString("pt-BR") ===
+                  new Date().toLocaleDateString("pt-BR")
+                }
+                onClick={() => setCurrentDate(advanceDay(currentDate, -1))}
+              >
+                <IconNextLeft
+                  className={`${
+                    currentDate.toLocaleDateString("pt-BR") ===
+                    new Date().toLocaleDateString("pt-BR")
+                      ? "invisible size-6 hover:bg-yellow-500"
+                      : "size-6 hover:bg-yellow-500"
+                  }`}
+                />
+              </button>
+              <h1 className="tracking-wider font-medium text-center text-lg sm:text-xl mb-4">
+                {currentDate.toLocaleDateString("pt-BR")}
+              </h1>
+              <button
+                onClick={() => setCurrentDate(advanceDay(currentDate, 1))}
+              >
+                <IconNextRight className="size-6 hover:bg-yellow-500" />
+              </button>
+            </span>
 
-            <ul className="flex flex-wrap gap-1 justify-center">
-              {hours.availableTimes.map((hour) => (
-                <li key={hour.id}>
-                  <SelectInput
-                    type="radio"
-                    name="options"
-                    id={hour.id}
-                    value={hour.id}
-                    checked={isCheckedHour === hour.id}
-                    onChange={handleChangeCheckedHour}
-                    className="hidden peer"
-                    disabled={isPastHour(hour.time) || isOccupied(hour.time)}
-                  />
-                  <label
-                    htmlFor={hour.id}
-                    className={`block px-8 py-4 text-center bg-gray-100 rounded-lg cursor-pointer hover:bg-yellow-500 peer-checked:bg-yellow-500 peer-checked:text-white transition duration-300 ease-in-out ${
-                      isPastHour(hour.time)
-                        ? "bg-red-400 hover:bg-red-600"
-                        : isOccupied(hour.time)
-                        ? "bg-gray-400 cursor-not-allowed"
-                        : "bg-gray-100"
-                    }`}
-                  >
-                    {hour.time}
-                  </label>
-                </li>
-              ))}
+            <ul className="flex flex-wrap gap-1 justify-center overflow-y-auto no-scrollbar">
+              {timesToShow?.map((hour: string) => {
+                const id = hour.replace(/\s/g, "");
+                return (
+                  <li key={id}>
+                    <SelectInput
+                      type="radio"
+                      name="options"
+                      id={id}
+                      value={hour}
+                      checked={isCheckedHour === hour}
+                      onChange={handleChangeCheckedHour}
+                      className="hidden peer"
+                      disabled={isPastHour(hour)}
+                    />
+                    <label
+                      htmlFor={id}
+                      className={`block px-8 py-4 text-center rounded-lg cursor-pointer hover:bg-yellow-500 peer-checked:bg-yellow-500 peer-checked:text-white transition duration-300 ease-in-out ${
+                        isPastHour(hour)
+                          ? "bg-red-400 hover:bg-red-600"
+                          : "bg-gray-100"
+                      }`}
+                    >
+                      {hour}
+                    </label>
+                  </li>
+                );
+              })}
             </ul>
+
+            {availableTimes.length > 3 && (
+              <div className="flex justify-center mt-4">
+                <button
+                  onClick={() => setShowAll(!showAll)}
+                  className="text-yellow-500 hover:underline font-medium"
+                >
+                  {showAll ? "Ver menos" : "Ver mais"}
+                </button>
+              </div>
+            )}
           </div>
         </section>
 
-        <Button
-          onClick={handleSaveAppointment}
-          disabled={!isCheckedHour}
-          className={`block ml-auto ${
-            isCheckedHour ? "cursor-pointer" : "cursor-not-allowed opacity-50"
-          }`}
-        >
-          <IconNextStep className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 -my-4 sm:-my-12 md:-my-28 mr-6 sm:mr-10 md:mr-14 text-white hover:text-yellow-500" />
-        </Button>
+        <div className="flex justify-end mr-[55px]">
+          <Button
+            onClick={handleSaveAppointment}
+            disabled={!isCheckedHour}
+            className={`w-10 ${
+              isCheckedHour ? "cursor-pointer" : "cursor-not-allowed opacity-50"
+            }`}
+          >
+            <IconNextStep className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 -my-4 sm:-my-12 md:-my-28 mr-6 sm:mr-10 md:mr-14 text-white hover:text-yellow-500" />
+          </Button>
+        </div>
       </section>
     </main>
   );

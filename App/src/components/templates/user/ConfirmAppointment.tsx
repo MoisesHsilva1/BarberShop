@@ -1,10 +1,6 @@
-import useDataAppointment from "../../../hooks/useDataAppointment";
-
 function ConfirmationAppointment() {
-  useDataAppointment();
-
   const fullAppointmentData = JSON.parse(
-    localStorage.getItem("fullAppointmentData") || "{}"
+    localStorage.getItem("appointmentData") || "{}"
   );
 
   return (

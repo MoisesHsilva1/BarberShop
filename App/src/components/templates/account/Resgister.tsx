@@ -36,7 +36,7 @@ function Register() {
     if (error) {
       toast.error("Error ao se registrar, Tente novamente.");
     }
-  }, [data]);
+  }, [data, error]);
 
   const onSubmitRegisterUser = (userData: RegisterForm) => {
     registerUser(userData);
@@ -165,7 +165,7 @@ function Register() {
                 {errors.confirmPassword.message}
               </p>
             )}
-            <Button type="submit" clasName="mt-6">
+            <Button type="submit" clasName="w-full mt-6">
               Cadastrar
             </Button>
             <p className="text-sm text-center text-white mt-4">
