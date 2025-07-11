@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import SectionConfirmationScheduler from "../../../../src/components /user/ConfirmationSchedulerUser/SectionConfirmationScheduler";
+import ConfirmAppointment from "../../../../src/components/templates/user/ConfirmAppointment"
 import { vi } from "vitest";
 import React from "react";
 
@@ -22,7 +22,7 @@ afterEach(() => {
 });
 
 test("should render the appointment confirmation message", () => {
-  render(<SectionConfirmationScheduler />);
+  render(<ConfirmAppointment />);
 
   expect(screen.getByText(/AGENDAMENTO/i)).toBeInTheDocument();
   expect(screen.getByText(/CONFIRMADO/i)).toBeInTheDocument();
@@ -30,7 +30,7 @@ test("should render the appointment confirmation message", () => {
 });
 
 test("should display the appointment details correctly", () => {
-  render(<SectionConfirmationScheduler />);
+  render(<ConfirmAppointment />);
 
   expect(screen.getByText("DIA")).toBeInTheDocument();
   expect(screen.getByText("10/04/2025.")).toBeInTheDocument();
@@ -45,6 +45,6 @@ test("should display 'N/A' if there are no services in the appointment", () => {
     JSON.stringify({ date: "10/04/2025", time: "14:00", services: null })
   );
 
-  render(<SectionConfirmationScheduler />);
+  render(<ConfirmAppointment />);
   expect(screen.getByText("N/A")).toBeInTheDocument();
 });

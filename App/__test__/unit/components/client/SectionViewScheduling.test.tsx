@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
-import SectionViewSchedulingClient from "../../../../src/components /client/ViewSchedulingClient/SectionViewSchedulingClient";
+import ViewAppointment from "../../../../src/components/templates/admin/ViewAppointment";
 import useAppointmentsByDate from "../../../../src/hooks/useAppointmentsByDate";
 import React from "react";
 import { Mock } from "vitest";
@@ -22,7 +22,7 @@ describe("SectionViewSchedulingClient", () => {
       loading: false,
       error: null,
     });
-    render(<SectionViewSchedulingClient />);
+    render(<ViewAppointment />);
     expect(
       screen.getByText(/Nenhum agendamento para este dia/i)
     ).toBeInTheDocument();
@@ -40,7 +40,7 @@ describe("SectionViewSchedulingClient", () => {
       loading: false,
       error: null,
     });
-    render(<SectionViewSchedulingClient />);
+    render(<ViewAppointment />);
     expect(screen.getByText("João")).toBeInTheDocument();
     expect(screen.getByText("CONTATO: 123456789")).toBeInTheDocument();
     expect(screen.getByText("HORÁRIO: 14:00")).toBeInTheDocument();
@@ -54,7 +54,7 @@ describe("SectionViewSchedulingClient", () => {
       loading: true,
       error: null,
     });
-    render(<SectionViewSchedulingClient />);
+    render(<ViewAppointment />);
     expect(screen.getAllByRole("button")[0]).toBeDisabled();
     expect(screen.getAllByRole("button")[1]).toBeDisabled();
   });
@@ -65,7 +65,7 @@ describe("SectionViewSchedulingClient", () => {
       loading: false,
       error: null,
     });
-    render(<SectionViewSchedulingClient />);
+    render(<ViewAppointment />);
 
     const buttons = screen.getAllByRole("button");
     fireEvent.click(buttons[1]);
