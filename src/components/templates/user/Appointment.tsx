@@ -59,12 +59,6 @@ const Appointment = () => {
   const handleSaveAppointment = () => {
     const services = JSON.parse(localStorage.getItem("servicesData") || "{}");
 
-    const appointmentData = {
-      date: formattedDate,
-      time: isCheckedHour,
-      services,
-    };
-
     localStorage.setItem(
       "appointmentData",
       JSON.stringify({
