@@ -1,18 +1,10 @@
 import { useNavigate } from "react-router";
-import IconUser from "../../atoms/Icons/IconUser";
-import { useAuth } from "../../../context/FirebaseAuthContext";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 
 function Header() {
   const navigate = useNavigate();
-  const { user } = useAuth();
 
-  const handleNavigate = (path: string, requireAuth: boolean = false) => {
-    if (requireAuth && !user) {
-      toast.error("Você deve estar logado para acessar essa aba.");
-      navigate("/login");
-      return;
-    }
+  const handleNavigate = (path: string) => {
     navigate(path);
   };
 
@@ -32,13 +24,13 @@ function Header() {
             <div className="flex gap-3 text-white text-[1rem] sm:text-[1.2rem]">
               <a
                 className="hover:text-blue-700"
-                onClick={() => handleNavigate("/", false)}
+                onClick={() => handleNavigate("/")}
               >
                 HOME
               </a>
               <a
                 className="hover:text-red-700"
-                onClick={() => handleNavigate("/servicos", true)}
+                onClick={() => handleNavigate("/servicos")}
               >
                 SERVIÇOS
               </a>
@@ -47,12 +39,6 @@ function Header() {
                 onClick={() => handleNavigate("/contato")}
               >
                 CONTATO
-              </a>
-              <a
-                className="hover:text-gray-400"
-                onClick={() => handleNavigate("/informacaoesUsuario", false)}
-              >
-                <IconUser />
               </a>
             </div>
           </div>
