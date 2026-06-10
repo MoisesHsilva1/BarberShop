@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 
 function Home() {
   const navigate = useNavigate();
