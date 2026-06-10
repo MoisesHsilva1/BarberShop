@@ -36,7 +36,7 @@ function Services() {
     <main>
       <section className="flex flex-col items-center justify-center min-h-screen px-4 ">
         <div className="max-w-2xl w-full">
-          <div className="bg-gradient-to-r from-yellow-500 to-yellow-600 p-1 rounded-2xl">
+          <div className="to-yellow-600 p-1 rounded-2xl">
             <div className="bg-black rounded-2xl p-12 text-center">
               <h1 className="text-white text-4xl sm:text-5xl font-bold mb-4">
                 Estamos em Manutenção
@@ -90,9 +90,6 @@ function Services() {
               </div>
             </div>
           </div>
-          <p className="text-white text-center mt-8 text-sm">
-            Voltaremos em breve com uma experiência melhorada
-          </p>
         </div>
       </section>
       {/* <section className="fixed bottom-0 left-0 w-full bg-black h-[60%] sm:h-[50%] shadow-lg">
