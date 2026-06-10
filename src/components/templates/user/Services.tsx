@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router";
+// import { useState } from "react";
+// import { useNavigate } from "react-router";
 // import SelectInput from "../../atoms/inputs/SelectInput";
 // import Button from "../../atoms/buttons/Button";
 // import IconNextStep from "../../atoms/Icons/IconNextStep";
@@ -11,8 +11,8 @@ import { useNavigate } from "react-router";
 // ];
 
 function Services() {
-  const [checkedServices, setCheckedServices] = useState<string[]>([]);
-  const navigate = useNavigate();
+  // const [checkedServices, setCheckedServices] = useState<string[]>([]);
+  // const navigate = useNavigate();
 
   // const handleCheckBoxServicesChange = (
   //   event: React.ChangeEvent<HTMLInputElement>
