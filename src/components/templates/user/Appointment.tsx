@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { useCreateAppointment } from "../../../hooks/useCreateAppointment";
 import { useAppointmentHours } from "../../../hooks/useAppointmentByHours";
 import SelectInput from "../../atoms/inputs/SelectInput";
 import IconNextRight from "../../atoms/Icons/IconNextRight";
@@ -13,7 +12,6 @@ const Appointment = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [showAll, setShowAll] = useState(false);
 
-  const { mutate: createAppointment } = useCreateAppointment();
   const formattedDate = currentDate.toISOString().split("T")[0];
   const {
     data: availableTimes,
@@ -76,7 +74,6 @@ const Appointment = () => {
       })
     );
 
-    createAppointment(appointmentData);
     navigate("/confirmacaoAgendamento");
   };
 
