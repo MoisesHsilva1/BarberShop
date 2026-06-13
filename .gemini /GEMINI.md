@@ -77,10 +77,10 @@ Error:
 ## Technology Stack
 
 * TypeScript (Strict Mode)
-* React 18
+* React 19
 * Vite
 * TailwindCSS v4
-* shadcn/ui
+* heroUI
 * React Router v7
 * TanStack Query v5
 * React Hook Form
