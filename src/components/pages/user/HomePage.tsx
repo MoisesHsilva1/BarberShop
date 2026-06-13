@@ -1,4 +1,4 @@
-import Header from "../../organisms/Header/HeaderUser";
+import Header from "../../organisms/Header";
 import Home from "../../templates/user/Home";
 
 function HomePage() {

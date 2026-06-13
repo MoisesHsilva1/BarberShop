@@ -1,5 +1,5 @@
 import ConfirmationAppointment from "../../templates/user/ConfirmAppointment";
-import Header from "../../organisms/Header/HeaderUser";
+import Header from "../../organisms/Header";
 
 function ConfirmationAppointmentPage() {
   return (
