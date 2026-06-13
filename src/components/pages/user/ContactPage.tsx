@@ -1,5 +1,5 @@
 import Contact from "../../templates/user/Contact";
-import Header from "../../organisms/Header/HeaderUser";
+import Header from "../../organisms/Header";
 
 function ContactPage() {
   return (
