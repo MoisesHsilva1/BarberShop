@@ -5,7 +5,7 @@ export const useAppointmentsByDate = (date: string) => {
   return useQuery({
     queryKey: ["getByDate", date],
     queryFn: ({ queryKey }) => {
-      const [_key, date] = queryKey;
+      const [, date] = queryKey;
       return getAppointmentByDateUseCase(date);
     },
     enabled: !!date,
