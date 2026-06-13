@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
-import { Toaster } from "react-hot-toast";
+import { Button } from "@heroui/react";
 
-function Home() {
+const Home = () => {
   const navigate = useNavigate();
 
   const handleNavigate = (path: string) => {
@@ -11,31 +11,31 @@ function Home() {
   return (
     <>
       <main className="overflow-hidden">
-        <section className="flex flex-col items-center justify-center min-h-screen px-4">
-          <Toaster />
-          <header className="text-4xl text-white sm:text-5xl md:text-6xl lg:text-7xl text-center font-sans">
-            <h1 className="font-semibold">NASCK HAIR</h1>
-            <h2 className="text-2xl font-light sm:text-3xl md:text-4xl">
-              UM NOVO CONCEITO SOBRE BARBEARIA
-            </h2>
-          </header>
-          <div className="mt-14 text-center">
-            <a
-              className="bg-yellow-500 hover:text-white border border-transparent rounded-2xl py-3 px-10 w-full sm:px-6 sm:py-3 text-sm sm:text-lg md:text-xl font-light"
-              onClick={() => {
-                handleNavigate("/servicos");
-              }}
-            >
-              AGENDAMENTO
-            </a>
-            <h3 className="mt-4 text-sm sm:text-base md:text-lg text-white font-normal">
-              FAÇA O SEU AGENDAMENTO ONLINE!!
-            </h3>
+        <section className="flex flex-col  items-center justify-center min-h-screen px-4">
+          <div className="bg-black bg-opacity-75 p-14 rounded-3xl shadow-lg">
+            <div className="flex flex-col items-center text-center space-y-2 max-w-4xl">
+              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-text-primary tracking-tighter ">
+                NASCK <span className="text-yellow-500">HAIR</span>
+              </h1>
+              <div className="w-20 h-1.5 bg-yellow-500 rounded-full my-2"></div>
+              <h2 className="text-xl sm:text-xl md:text-xl lg:text-2xl font-light text-text-secondary">
+                UM NOVO CONCEITO SOBRE BARBEARIA
+              </h2>
+            </div>
+
+            <div className="mt-16 text-center flex flex-col items-center gap-8">
+              <Button
+                onPress={() => handleNavigate("/servicos")}
+                className="bg-yellow-500 hover:bg-yellow-600 text-black  text-md md:text-md py-8 px-12 rounded-2xl transition-all duration-200 active:scale-95 shadow-xl "
+              >
+                AGENDAMENTO
+              </Button>
+            </div>
           </div>
         </section>
       </main>
     </>
   );
-}
+};
 
 export default Home;
