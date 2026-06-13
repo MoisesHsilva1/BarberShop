@@ -1,6 +1,26 @@
 @import "tailwindcss";
 @import "@heroui/styles"; 
 
+@theme {
+  --color-yellow-100: #fef3c7;
+  --color-yellow-400: #fbbf24;
+  --color-yellow-500: #f59e0b;
+  --color-yellow-600: #d97706;
+
+  --color-background: #0a0a0a;
+  --color-surface: #111827;
+  --color-surface-hover: #1f2937;
+  
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #d1d5db;
+  --color-text-muted: #9ca3af;
+  
+  --color-border: #374151;
+  
+  --color-success: #10b981;
+  --color-error: #ef4444;
+}
+
 * {
   font-family: "Roboto", sans-serif;
 }
